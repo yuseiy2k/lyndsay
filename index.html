@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Messages & Music</title>
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: #ffe0eb;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .container {
+    background: #fff0f4cc;
+    max-width: 320px;
+    width: 100%;
+    padding: 25px 20px 35px;
+    border: 3px solid #f7b1bd;
+    border-radius: 18px;
+    text-align: center;
+  }
+
+  .image-box {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 25px;
+    border-radius: 20px;
+    border: 3px solid #f7b1bd;
+    background: #ffd7e3;
+    overflow: hidden;
+  }
+
+  .image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 28px;
+    color: #f76e9a;
+    margin: 0 0 10px;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 22px;
+    color: #f594ae;
+    margin: 0 0 20px;
+  }
+
+  button {
+    background: #f79bb1;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 11px 45px;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    background: #f25e80;
+  }
+
+  .message-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffc0cb;
+    color: #000;
+    padding: 25px 20px;
+    border-radius: 15px;
+    border: 3px solid #f79bb1;
+    text-align: center;
+    z-index: 1000;
+    min-width: 250px;
+  }
+
+  .message-modal button {
+    margin-top: 15px;
+    padding: 10px 30px;
+    border-radius: 15px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Hidden looping music -->
+<audio id="bgMusic" loop>
+  <source src="music/torpe.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <div class="image-box">
+    <img src="https://i.imgur.com/G3vjZwM.gif" alt="Cute GIF" />
+  </div>
+  <h1>Hi miss masungit</h1>
+  <h2>˶ᵔ ᵕ ᵔ˶</h2>
+  <button id="mainNextBtn">Open the letter💌</button>
+</div>
+
+<div class="message-modal" id="messageModal">
+  <div id="modalText"></div>
+  <button id="modalNextBtn">Next</button>
+</div>
+
+<script>
+  const messages = [
+    "Message 1: You are amazing! 💖",
+    "Message 2: Keep smiling! ☺️",
+    "Message 3: Believe in yourself! 🌟",
+    "Message 4: Sending you lots of love! ❤️",
+    "Message 5: Stay positive and strong! 💪",
+    "Message 6: Dream big, little one! ✨",
+    "Message 7: You make the world brighter! 🌈",
+    "Message 8: Happiness looks good on you! 😊",
+    "Message 9: Keep shining and growing! 🌸",
+    "Message 10: Always here for you! 🤗"
+  ];
+
+  let idx = 0;
+  const mainNextBtn = document.getElementById('mainNextBtn');
+  const modal = document.getElementById('messageModal');
+  const modalText = document.getElementById('modalText');
+  const modalNextBtn = document.getElementById('modalNextBtn');
+  const bgMusic = document.getElementById('bgMusic');
+
+  // Start messages + auto-play music
+  mainNextBtn.addEventListener('click', () => {
+    idx = 0;
+    modal.style.display = 'block';
+    modalText.textContent = messages[idx];
+    bgMusic.play();  // ⬅ Auto-play
+  });
+
+  // Next messages
+  modalNextBtn.addEventListener('click', () => {
+    idx++;
+    if(idx < messages.length){
+      modalText.textContent = messages[idx];
+    } else {
+      modal.style.display = 'none';
+      idx = 0;
+    }
+  });
+</script>
+
+</body>
+</html>

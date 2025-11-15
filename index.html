@@ -97,9 +97,9 @@
 </head>
 <body>
 
-<!-- Hidden looping music -->
-<audio id="bgMusic" loop>
-  <source src="music/torpe.mp3" type="audio/mpeg">
+<!-- Music -->
+<audio id="bgMusic" loop autoplay>
+  <source src="torpe.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
@@ -109,6 +109,7 @@
   <h1>Hi miss masungit</h1>
   <h2>˶ᵔ ᵕ ᵔ˶</h2>
   <button id="mainNextBtn">Open the letter💌</button>
+  <button id="musicToggleBtn">Pause Music</button>
 </div>
 
 <div class="message-modal" id="messageModal">
@@ -136,16 +137,32 @@
   const modalText = document.getElementById('modalText');
   const modalNextBtn = document.getElementById('modalNextBtn');
   const bgMusic = document.getElementById('bgMusic');
+  const musicToggleBtn = document.getElementById('musicToggleBtn');
 
-  // Start messages + auto-play music
+  // Auto-play fallback for browsers that block autoplay
+  bgMusic.volume = 0.5;
+  bgMusic.play().catch(() => {
+    document.addEventListener('click', () => bgMusic.play(), { once: true });
+  });
+
+  // Toggle music Play/Pause
+  musicToggleBtn.addEventListener('click', () => {
+    if(bgMusic.paused){
+      bgMusic.play();
+      musicToggleBtn.textContent = 'Pause Music';
+    } else {
+      bgMusic.pause();
+      musicToggleBtn.textContent = 'Play Music';
+    }
+  });
+
+  // Show modal messages
   mainNextBtn.addEventListener('click', () => {
     idx = 0;
     modal.style.display = 'block';
     modalText.textContent = messages[idx];
-    bgMusic.play();  // ⬅ Auto-play
   });
 
-  // Next messages
   modalNextBtn.addEventListener('click', () => {
     idx++;
     if(idx < messages.length){
